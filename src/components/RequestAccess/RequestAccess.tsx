@@ -345,7 +345,6 @@ export function RequestAccessModal({ isOpen, onClose }: RequestAccessProps) {
                 </Box>
                 <Text
                   as="label"
-                  htmlFor="ra-agreed"
                   fontSize={REQUEST_ACCESS_TOKENS.privacyFontSize}
                   color={REQUEST_ACCESS_TOKENS.privacyColor}
                   lineHeight="1.6"
