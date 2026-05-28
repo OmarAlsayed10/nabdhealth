@@ -67,8 +67,8 @@ export function buildAdminEmail(data: AccessRequestValid, approveUrl: string): B
   const body = `
     <table style="width:100%;border-collapse:collapse;font-size:14px;line-height:1.5">${buildInfoTable(data)}</table>
     <div style="margin-top:24px;text-align:center">
-      <a href="${approveUrl}" style="display:inline-block;padding:12px 24px;background:#0A7A8C;color:white;text-decoration:none;border-radius:8px;font-weight:600">Approve &amp; Send Installer</a>
-      <p style="margin:12px 0 0;color:#6b7280;font-size:12px">Clicking this will email the doctor the installer download link. Link expires in 48 hours.</p>
+      <a href="${approveUrl}" style="display:inline-block;padding:12px 24px;background:#0A7A8C;color:white;text-decoration:none;border-radius:8px;font-weight:600">Approve Request</a>
+      <p style="margin:12px 0 0;color:#6b7280;font-size:12px">Clicking this will email the doctor that their request has been approved and that customer support will contact them on WhatsApp. Link expires in 48 hours.</p>
     </div>
   `
   const html = shell('New Access Request', 'Nabd — request submitted via the website', body)
@@ -82,32 +82,27 @@ export function buildDoctorAckEmail(data: AccessRequestValid): BuiltEmail {
   const body = `
     <p>Dear Dr. ${e(data.fullName)},</p>
     <p>Thank you for requesting access to <strong>Nabd Clinic</strong>. We received your request for <strong>${e(data.clinicName)}</strong> and our team will review it within 1–2 business days.</p>
-    <p>Once approved, you will receive a follow-up email with the installer download link and setup instructions.</p>
+    <p>Once approved, you will receive a follow-up email and a member of our customer support team will reach out to you on WhatsApp to share the installer and help you get set up.</p>
     <p style="margin-top:24px;color:#6b7280;font-size:13px">If you did not submit this request, you can ignore this message.</p>
     <p style="margin-top:24px">— The Nabd Team</p>
   `
   const html = shell('Request Received', 'Thanks for choosing Nabd Clinic', body)
-  const text = `Dear Dr. ${data.fullName},\n\nThank you for requesting access to Nabd Clinic. We received your request for ${data.clinicName} and our team will review it within 1–2 business days.\n\nOnce approved, you will receive a follow-up email with the installer download link and setup instructions.\n\n— The Nabd Team`
+  const text = `Dear Dr. ${data.fullName},\n\nThank you for requesting access to Nabd Clinic. We received your request for ${data.clinicName} and our team will review it within 1–2 business days.\n\nOnce approved, you will receive a follow-up email and a member of our customer support team will reach out to you on WhatsApp to share the installer and help you get set up.\n\n— The Nabd Team`
   return { subject, html, text }
 }
 
 export function buildDoctorApprovedEmail(
   data: Pick<AccessRequestValid, 'fullName' | 'clinicName'>,
-  installerUrl: string,
 ): BuiltEmail {
   const e = escapeHtml
   const subject = 'Your Nabd Clinic access is approved'
   const body = `
     <p>Dear Dr. ${e(data.fullName)},</p>
     <p>Great news — your access request for <strong>${e(data.clinicName)}</strong> has been approved.</p>
-    <p>Download the Nabd Clinic installer using the button below:</p>
-    <div style="margin:24px 0;text-align:center">
-      <a href="${installerUrl}" style="display:inline-block;padding:14px 28px;background:#0A7A8C;color:white;text-decoration:none;border-radius:8px;font-weight:600;font-size:15px">Download Nabd Clinic Installer</a>
-    </div>
-    <p style="margin-top:24px">Need help installing? Reply to this email and our team will assist you.</p>
+    <p>A member of our customer support team will contact you shortly on WhatsApp to share the Nabd Clinic installer and walk you through setup.</p>
     <p style="margin-top:24px">— The Nabd Team</p>
   `
-  const html = shell('Access Approved', 'Your Nabd Clinic installer is ready', body)
-  const text = `Dear Dr. ${data.fullName},\n\nGreat news — your access request for ${data.clinicName} has been approved.\n\nDownload the installer here:\n${installerUrl}\n\nNeed help? Reply to this email.\n\n— The Nabd Team`
+  const html = shell('Access Approved', 'Welcome to Nabd Clinic', body)
+  const text = `Dear Dr. ${data.fullName},\n\nGreat news — your access request for ${data.clinicName} has been approved.\n\nA member of our customer support team will contact you shortly on WhatsApp to share the Nabd Clinic installer and walk you through setup.\n\n— The Nabd Team`
   return { subject, html, text }
 }

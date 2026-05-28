@@ -18,7 +18,6 @@ export function FeaturesPage({ onRequestAccess }: FeaturesPageProps) {
       <PageHeader
         badge={t.features.badge}
         headline={t.features.headline}
-        subheadline={t.features.subheadline}
       />
       <Features onRequestAccess={onRequestAccess} showAll hideIntro />
       <VideoDemo onRequestAccess={onRequestAccess} />

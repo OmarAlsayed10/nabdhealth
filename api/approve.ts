@@ -41,13 +41,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       .send(htmlPage('Link expired or invalid', '<p>This approval link is no longer valid. It may have expired or been tampered with.</p>', '#b91c1c'))
   }
 
-  const installerUrl = process.env.INSTALLER_URL
-  if (!installerUrl) {
-    console.error('[approve] INSTALLER_URL missing')
-    res.setHeader('Content-Type', 'text/html; charset=utf-8')
-    return res.status(500).send(htmlPage('Not configured', '<p>INSTALLER_URL env var is not set.</p>', '#b91c1c'))
-  }
-
   const host = process.env.SMTP_HOST
   const port = Number(process.env.SMTP_PORT ?? 587)
   const user = process.env.SMTP_USER
@@ -64,10 +57,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     auth: { user, pass },
   })
 
-  const email = buildDoctorApprovedEmail(
-    { fullName: payload.fullName, clinicName: payload.clinicName },
-    installerUrl,
-  )
+  const email = buildDoctorApprovedEmail({
+    fullName: payload.fullName,
+    clinicName: payload.clinicName,
+  })
 
   try {
     await transporter.sendMail({
@@ -90,7 +83,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     htmlPage(
       'Approved',
       `<p>Approval email sent to <strong>${payload.email}</strong>.</p>
-       <p style="color:#6b7280;font-size:13px">Dr. ${payload.fullName} (${payload.clinicName}) will receive the installer download link.</p>`,
+       <p style="color:#6b7280;font-size:13px">Dr. ${payload.fullName} (${payload.clinicName}) has been notified. Reach out to them on WhatsApp to share the installer.</p>`,
       '#0A7A8C',
     ),
   )
