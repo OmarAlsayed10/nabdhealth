@@ -104,7 +104,6 @@ export function buildDoctorApprovedEmail(
     <div style="margin:24px 0;text-align:center">
       <a href="${installerUrl}" style="display:inline-block;padding:14px 28px;background:#0A7A8C;color:white;text-decoration:none;border-radius:8px;font-weight:600;font-size:15px">Download Nabd Clinic Installer</a>
     </div>
-    <p style="font-size:13px;color:#6b7280">If the button does not work, copy this link into your browser:<br><a href="${installerUrl}">${installerUrl}</a></p>
     <p style="margin-top:24px">Need help installing? Reply to this email and our team will assist you.</p>
     <p style="margin-top:24px">— The Nabd Team</p>
   `
