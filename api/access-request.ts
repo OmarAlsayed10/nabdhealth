@@ -37,6 +37,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   const user = process.env.SMTP_USER
   const pass = process.env.SMTP_PASS
 
+  
   if (!host || !user || !pass) {
     const missing = [
       !host && 'SMTP_HOST',
