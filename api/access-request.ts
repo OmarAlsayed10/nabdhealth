@@ -2,7 +2,8 @@ import type { VercelRequest, VercelResponse } from '@vercel/node'
 import nodemailer from 'nodemailer'
 import { validateAccessRequestServer } from './_lib/validation'
 import { checkRateLimit } from './_lib/rateLimit'
-import { buildAccessRequestEmail } from './_lib/email'
+import { buildAdminEmail, buildDoctorAckEmail } from './_lib/email'
+import { signApprovalToken } from './_lib/approval-token'
 
 const TO_EMAIL = 'nabdhealtheg@gmail.com'
 
@@ -37,7 +38,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   const user = process.env.SMTP_USER
   const pass = process.env.SMTP_PASS
 
-  
   if (!host || !user || !pass) {
     const missing = [
       !host && 'SMTP_HOST',
@@ -48,6 +48,21 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(500).json({ message: `Email service not configured (missing: ${missing}).` })
   }
 
+  let approveUrl: string
+  try {
+    const token = signApprovalToken({
+      email: validation.value.email,
+      fullName: validation.value.fullName,
+      clinicName: validation.value.clinicName,
+    })
+    const siteUrl = (process.env.PUBLIC_SITE_URL ?? '').replace(/\/$/, '')
+      || `https://${req.headers.host ?? ''}`
+    approveUrl = `${siteUrl}/api/approve?token=${encodeURIComponent(token)}`
+  } catch (err) {
+    console.error('[access-request] token signing failed:', err)
+    return res.status(500).json({ message: 'Approval system not configured (missing APPROVAL_SECRET).' })
+  }
+
   const transporter = nodemailer.createTransport({
     host,
     port,
@@ -55,17 +70,29 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     auth: { user, pass },
   })
 
-  const { subject, html, text } = buildAccessRequestEmail(validation.value)
+  const adminEmail = buildAdminEmail(validation.value, approveUrl)
+  const doctorEmail = buildDoctorAckEmail(validation.value)
+  const fromHeader = `"Nabd" <${user}>`
 
   try {
-    await transporter.sendMail({
-      from: `"Nabd Clinic Website" <${user}>`,
-      to: TO_EMAIL,
-      replyTo: validation.value.email,
-      subject,
-      html,
-      text,
-    })
+    await Promise.all([
+      transporter.sendMail({
+        from: fromHeader,
+        to: TO_EMAIL,
+        replyTo: validation.value.email,
+        subject: adminEmail.subject,
+        html: adminEmail.html,
+        text: adminEmail.text,
+      }),
+      transporter.sendMail({
+        from: fromHeader,
+        to: validation.value.email,
+        replyTo: TO_EMAIL,
+        subject: doctorEmail.subject,
+        html: doctorEmail.html,
+        text: doctorEmail.text,
+      }),
+    ])
     return res.status(200).json({ ok: true })
   } catch (err) {
     const e = err as { code?: string; response?: string; message?: string }
