@@ -38,8 +38,13 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   const pass = process.env.SMTP_PASS
 
   if (!host || !user || !pass) {
-    console.error('[access-request] SMTP env vars missing')
-    return res.status(500).json({ message: 'Email service is not configured.' })
+    const missing = [
+      !host && 'SMTP_HOST',
+      !user && 'SMTP_USER',
+      !pass && 'SMTP_PASS',
+    ].filter(Boolean).join(', ')
+    console.error('[access-request] SMTP env vars missing:', missing)
+    return res.status(500).json({ message: `Email service not configured (missing: ${missing}).` })
   }
 
   const transporter = nodemailer.createTransport({
@@ -62,7 +67,14 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     })
     return res.status(200).json({ ok: true })
   } catch (err) {
-    console.error('[access-request] SMTP error:', err)
-    return res.status(502).json({ message: 'Failed to send email.' })
+    const e = err as { code?: string; response?: string; message?: string }
+    console.error('[access-request] SMTP error:', {
+      code: e?.code,
+      response: e?.response,
+      message: e?.message,
+    })
+    return res.status(502).json({
+      message: `Email send failed: ${e?.code ?? ''} ${e?.message ?? 'unknown error'}`.trim(),
+    })
   }
 }
