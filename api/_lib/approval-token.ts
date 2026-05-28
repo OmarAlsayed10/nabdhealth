@@ -2,10 +2,13 @@ import { createHmac, timingSafeEqual } from 'crypto'
 
 const TTL_MS = 14 * 24 * 60 * 60 * 1000
 
+export type ApprovalAction = 'approve' | 'reject'
+
 export interface ApprovalPayload {
   email: string
   fullName: string
   clinicName: string
+  action: ApprovalAction
   exp: number
 }
 
@@ -26,6 +29,7 @@ function isApprovalPayload(v: unknown): v is ApprovalPayload {
     typeof o.email === 'string' &&
     typeof o.fullName === 'string' &&
     typeof o.clinicName === 'string' &&
+    (o.action === 'approve' || o.action === 'reject') &&
     typeof o.exp === 'number'
   )
 }

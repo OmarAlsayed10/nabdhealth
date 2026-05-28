@@ -174,9 +174,11 @@ export function RequestAccessModal({ isOpen, onClose }: RequestAccessProps) {
             <Text fontSize={{ base: '1.375rem', md: '1.5rem' }} fontWeight="700" color="gray.900" lineHeight="1.2">
               {t.requestAccess.headline}
             </Text>
-            <Text mt="2" fontSize="14px" color="gray.500" lineHeight="1.6">
-              {t.requestAccess.subheadline}
-            </Text>
+            {status !== 'success' && (
+              <Text mt="2" fontSize="14px" color="gray.500" lineHeight="1.6">
+                {t.requestAccess.subheadline}
+              </Text>
+            )}
           </Box>
           <Box
             as="button"

@@ -49,15 +49,19 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   let approveUrl: string
+  let rejectUrl: string
   try {
-    const token = signApprovalToken({
+    const basePayload = {
       email: validation.value.email,
       fullName: validation.value.fullName,
       clinicName: validation.value.clinicName,
-    })
+    }
+    const approveToken = signApprovalToken({ ...basePayload, action: 'approve' })
+    const rejectToken = signApprovalToken({ ...basePayload, action: 'reject' })
     const siteUrl = (process.env.PUBLIC_SITE_URL ?? '').replace(/\/$/, '')
       || `https://${req.headers.host ?? ''}`
-    approveUrl = `${siteUrl}/api/approve?token=${encodeURIComponent(token)}`
+    approveUrl = `${siteUrl}/api/approve?token=${encodeURIComponent(approveToken)}`
+    rejectUrl = `${siteUrl}/api/reject?token=${encodeURIComponent(rejectToken)}`
   } catch (err) {
     console.error('[access-request] token signing failed:', err)
     return res.status(500).json({ message: 'Approval system not configured (missing APPROVAL_SECRET).' })
@@ -70,7 +74,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     auth: { user, pass },
   })
 
-  const adminEmail = buildAdminEmail(validation.value, approveUrl)
+  const adminEmail = buildAdminEmail(validation.value, approveUrl, rejectUrl)
   const doctorEmail = buildDoctorAckEmail(validation.value)
   const fromHeader = `"Nabd" <${user}>`
 

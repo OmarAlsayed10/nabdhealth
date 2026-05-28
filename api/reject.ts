@@ -1,7 +1,7 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node'
 import nodemailer from 'nodemailer'
 import { verifyApprovalToken } from './_lib/approval-token'
-import { buildDoctorApprovedEmail } from './_lib/email'
+import { buildDoctorRejectedEmail } from './_lib/email'
 
 function htmlPage(title: string, message: string, color: string): string {
   return `<!doctype html><html><head><meta charset="utf-8"><title>${title}</title></head>
@@ -22,14 +22,14 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   const token = typeof req.query.token === 'string' ? req.query.token : ''
   if (!token) {
     res.setHeader('Content-Type', 'text/html; charset=utf-8')
-    return res.status(400).send(htmlPage('Invalid link', '<p>This approval link is missing its token.</p>', '#b91c1c'))
+    return res.status(400).send(htmlPage('Invalid link', '<p>This rejection link is missing its token.</p>', '#b91c1c'))
   }
 
   let payload
   try {
     payload = verifyApprovalToken(token)
   } catch (err) {
-    console.error('[approve] verify error:', err)
+    console.error('[reject] verify error:', err)
     res.setHeader('Content-Type', 'text/html; charset=utf-8')
     return res.status(500).send(htmlPage('Server error', '<p>Approval system not configured (missing APPROVAL_SECRET).</p>', '#b91c1c'))
   }
@@ -38,14 +38,14 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     res.setHeader('Content-Type', 'text/html; charset=utf-8')
     return res
       .status(400)
-      .send(htmlPage('Link expired or invalid', '<p>This approval link is no longer valid. It may have expired or been tampered with.</p>', '#b91c1c'))
+      .send(htmlPage('Link expired or invalid', '<p>This rejection link is no longer valid. It may have expired or been tampered with.</p>', '#b91c1c'))
   }
 
-  if (payload.action !== 'approve') {
+  if (payload.action !== 'reject') {
     res.setHeader('Content-Type', 'text/html; charset=utf-8')
     return res
       .status(400)
-      .send(htmlPage('Wrong action', '<p>This link is not an approval link.</p>', '#b91c1c'))
+      .send(htmlPage('Wrong action', '<p>This link is not a rejection link.</p>', '#b91c1c'))
   }
 
   const host = process.env.SMTP_HOST
@@ -64,7 +64,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     auth: { user, pass },
   })
 
-  const email = buildDoctorApprovedEmail({
+  const email = buildDoctorRejectedEmail({
     fullName: payload.fullName,
     clinicName: payload.clinicName,
   })
@@ -80,18 +80,18 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     })
   } catch (err) {
     const e = err as { code?: string; message?: string }
-    console.error('[approve] SMTP error:', e)
+    console.error('[reject] SMTP error:', e)
     res.setHeader('Content-Type', 'text/html; charset=utf-8')
-    return res.status(502).send(htmlPage('Email failed', `<p>Could not send the approval email: ${e?.message ?? 'unknown'}</p>`, '#b91c1c'))
+    return res.status(502).send(htmlPage('Email failed', `<p>Could not send the rejection email: ${e?.message ?? 'unknown'}</p>`, '#b91c1c'))
   }
 
   res.setHeader('Content-Type', 'text/html; charset=utf-8')
   return res.status(200).send(
     htmlPage(
-      'Approved',
-      `<p>Approval email sent to <strong>${payload.email}</strong>.</p>
-       <p style="color:#6b7280;font-size:13px">Dr. ${payload.fullName} (${payload.clinicName}) has been notified. Reach out to them on WhatsApp to share the installer.</p>`,
-      '#0A7A8C',
+      'Rejected',
+      `<p>Rejection email sent to <strong>${payload.email}</strong>.</p>
+       <p style="color:#6b7280;font-size:13px">Dr. ${payload.fullName} (${payload.clinicName}) has been notified that customer support will contact them with the reason.</p>`,
+      '#b91c1c',
     ),
   )
 }

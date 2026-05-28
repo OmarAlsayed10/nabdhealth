@@ -62,17 +62,22 @@ function shell(headerTitle: string, headerSub: string, body: string): string {
 </body></html>`
 }
 
-export function buildAdminEmail(data: AccessRequestValid, approveUrl: string): BuiltEmail {
+export function buildAdminEmail(
+  data: AccessRequestValid,
+  approveUrl: string,
+  rejectUrl: string,
+): BuiltEmail {
   const subject = `New access request — ${data.fullName} (${data.clinicName})`
   const body = `
     <table style="width:100%;border-collapse:collapse;font-size:14px;line-height:1.5">${buildInfoTable(data)}</table>
     <div style="margin-top:24px;text-align:center">
-      <a href="${approveUrl}" style="display:inline-block;padding:12px 24px;background:#0A7A8C;color:white;text-decoration:none;border-radius:8px;font-weight:600">Approve Request</a>
-      <p style="margin:12px 0 0;color:#6b7280;font-size:12px">Clicking this will email the doctor that their request has been approved and that customer support will contact them on WhatsApp. Link expires in 48 hours.</p>
+      <a href="${approveUrl}" style="display:inline-block;padding:12px 24px;margin:0 6px 12px;background:#0A7A8C;color:white;text-decoration:none;border-radius:8px;font-weight:600">Approve Request</a>
+      <a href="${rejectUrl}" style="display:inline-block;padding:12px 24px;margin:0 6px 12px;background:#b91c1c;color:white;text-decoration:none;border-radius:8px;font-weight:600">Reject Request</a>
+      <p style="margin:12px 0 0;color:#6b7280;font-size:12px">Approving emails the doctor that their request has been approved and that customer support will contact them on WhatsApp. Rejecting emails the doctor that their request was not approved and that customer support will contact them with the reason. Links expire in 14 days.</p>
     </div>
   `
   const html = shell('New Access Request', 'Nabd — request submitted via the website', body)
-  const text = `${plainTextOf(data)}\n\nApprove: ${approveUrl}`
+  const text = `${plainTextOf(data)}\n\nApprove: ${approveUrl}\nReject: ${rejectUrl}`
   return { subject, html, text }
 }
 
@@ -88,6 +93,22 @@ export function buildDoctorAckEmail(data: AccessRequestValid): BuiltEmail {
   `
   const html = shell('Request Received', 'Thanks for choosing Nabd Clinic', body)
   const text = `Dear Dr. ${data.fullName},\n\nThank you for requesting access to Nabd Clinic. We received your request for ${data.clinicName} and our team will review it within 1–2 business days.\n\nOnce approved, you will receive a follow-up email and a member of our customer support team will reach out to you on WhatsApp to share the installer and help you get set up.\n\n— The Nabd Team`
+  return { subject, html, text }
+}
+
+export function buildDoctorRejectedEmail(
+  data: Pick<AccessRequestValid, 'fullName' | 'clinicName'>,
+): BuiltEmail {
+  const e = escapeHtml
+  const subject = 'Update on your Nabd Clinic access request'
+  const body = `
+    <p>Dear Dr. ${e(data.fullName)},</p>
+    <p>Thank you for your interest in <strong>Nabd Clinic</strong>. After reviewing your access request for <strong>${e(data.clinicName)}</strong>, we are unable to approve it at this time.</p>
+    <p>A member of our customer support team will contact you shortly to explain the reason and discuss any next steps that may be available.</p>
+    <p style="margin-top:24px">— The Nabd Team</p>
+  `
+  const html = shell('Request Update', 'Nabd Clinic access request', body)
+  const text = `Dear Dr. ${data.fullName},\n\nThank you for your interest in Nabd Clinic. After reviewing your access request for ${data.clinicName}, we are unable to approve it at this time.\n\nA member of our customer support team will contact you shortly to explain the reason and discuss any next steps that may be available.\n\n— The Nabd Team`
   return { subject, html, text }
 }
 
