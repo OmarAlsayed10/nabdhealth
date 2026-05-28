@@ -19,7 +19,7 @@ export function AboutPage({ onRequestAccess }: AboutPageProps) {
         headline={t.about.headline}
         align="left"
       />
-      <About />
+      <About hideIntro />
       <CTABanner onRequestAccess={onRequestAccess} />
     </Box>
   )

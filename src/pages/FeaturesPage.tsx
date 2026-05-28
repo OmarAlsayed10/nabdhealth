@@ -20,7 +20,7 @@ export function FeaturesPage({ onRequestAccess }: FeaturesPageProps) {
         headline={t.features.headline}
         subheadline={t.features.subheadline}
       />
-      <Features onRequestAccess={onRequestAccess} showAll />
+      <Features onRequestAccess={onRequestAccess} showAll hideIntro />
       <VideoDemo onRequestAccess={onRequestAccess} />
       <CTABanner onRequestAccess={onRequestAccess} />
     </Box>

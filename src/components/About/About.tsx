@@ -6,8 +6,9 @@ import { AppCard } from '../UI/AppCard/AppCard'
 import { useTranslation } from '../../hooks/useTranslation'
 import { useScrollAnimationGroup } from '../../hooks/useScrollAnimation'
 import { ABOUT_TOKENS } from './About.token'
+import type { AboutProps } from './About.type'
 
-export function About() {
+export function About({ hideIntro = false }: AboutProps = {}) {
   const { t } = useTranslation()
   const storyRef = useScrollAnimationGroup<HTMLDivElement>()
   const valuesRef = useScrollAnimationGroup<HTMLDivElement>()
@@ -30,29 +31,8 @@ export function About() {
     <>
       <SectionWrapper background="white" id="about">
         <Box ref={storyRef}>
-          <Grid templateColumns={{ base: '1fr', lg: '1fr 1fr' }} gap={{ base: '10', lg: '20' }} alignItems="start">
-            <Box>
-              <Box className="animate-fade-up">
-                <AppBadge>{t.about.badge}</AppBadge>
-              </Box>
-              <Text
-                as="h2"
-                mt="4"
-                fontSize={{ base: '1.875rem', md: '2.5rem' }}
-                fontWeight="700"
-                color="gray.900"
-                letterSpacing="-0.02em"
-                className="animate-fade-up animate-delay-1"
-              >
-                {t.about.headline}
-              </Text>
-            </Box>
-
-            <VStack
-              align="start"
-              gap="5"
-              pt={{ base: '0', lg: '16' }}
-            >
+          {hideIntro ? (
+            <VStack align="start" gap="5">
               {(t.about.story as readonly string[]).map((paragraph, i) => (
                 <Text
                   key={i}
@@ -66,7 +46,45 @@ export function About() {
                 </Text>
               ))}
             </VStack>
-          </Grid>
+          ) : (
+            <Grid templateColumns={{ base: '1fr', lg: '1fr 1fr' }} gap={{ base: '10', lg: '20' }} alignItems="start">
+              <Box>
+                <Box className="animate-fade-up">
+                  <AppBadge>{t.about.badge}</AppBadge>
+                </Box>
+                <Text
+                  as="h2"
+                  mt="4"
+                  fontSize={{ base: '1.875rem', md: '2.5rem' }}
+                  fontWeight="700"
+                  color="gray.900"
+                  letterSpacing="-0.02em"
+                  className="animate-fade-up animate-delay-1"
+                >
+                  {t.about.headline}
+                </Text>
+              </Box>
+
+              <VStack
+                align="start"
+                gap="5"
+                pt={{ base: '0', lg: '16' }}
+              >
+                {(t.about.story as readonly string[]).map((paragraph, i) => (
+                  <Text
+                    key={i}
+                    fontSize={ABOUT_TOKENS.storyFontSize}
+                    color={ABOUT_TOKENS.storyColor}
+                    lineHeight={ABOUT_TOKENS.storyLineHeight}
+                    className="animate-fade-up"
+                    style={{ transitionDelay: `${i * 0.08}s` }}
+                  >
+                    {paragraph}
+                  </Text>
+                ))}
+              </VStack>
+            </Grid>
+          )}
         </Box>
       </SectionWrapper>
 

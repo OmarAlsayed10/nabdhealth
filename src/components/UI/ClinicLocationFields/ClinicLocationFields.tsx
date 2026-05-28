@@ -1,11 +1,11 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Box, Flex, Grid, Text, chakra } from '@chakra-ui/react'
 import { Crosshair, AlertCircle } from 'lucide-react'
 import { AppInput } from '../AppInput/AppInput'
 import { LocationPickerLazy } from '../LocationPicker/LocationPicker.lazy'
 import { COUNTRIES } from '../../../constants/countries'
 import { useTranslation } from '../../../hooks/useTranslation'
-import { reverseGeocode } from '../../../services/geocode.service'
+import { forwardGeocode, reverseGeocode } from '../../../services/geocode.service'
 import { INPUT_TOKENS } from '../AppInput/AppInput.token'
 import type { ClinicLocationFieldsProps, ClinicLocationValue } from './ClinicLocationFields.type'
 
@@ -13,62 +13,40 @@ const Label = chakra('label')
 const Btn = chakra('button')
 const Select = chakra('select')
 
-interface CityEntry {
-  name: string
-  latitude: string
-  longitude: string
-}
+const GEOCODE_DEBOUNCE_MS = 800
 
 export function ClinicLocationFields({ value, onChange, errors }: ClinicLocationFieldsProps) {
   const { t, lang } = useTranslation()
   const [locating, setLocating] = useState(false)
+  const [geocoding, setGeocoding] = useState(false)
   const [geocodeError, setGeocodeError] = useState<string | null>(null)
-  const [cities, setCities] = useState<CityEntry[]>([])
-  const [citiesLoading, setCitiesLoading] = useState(false)
-  const lastIso2Ref = useRef<string>('')
-
-  useEffect(() => {
-    const iso2 = value.countryIso2
-    if (!iso2) {
-      setCities([])
-      return
-    }
-    if (lastIso2Ref.current === iso2 && cities.length > 0) return
-    let cancelled = false
-    setCitiesLoading(true)
-    ;(async () => {
-      const mod = await import('country-state-city')
-      if (cancelled) return
-      const list = (mod.City.getCitiesOfCountry(iso2) ?? []) as CityEntry[]
-      list.sort((a, b) => a.name.localeCompare(b.name))
-      lastIso2Ref.current = iso2
-      setCities(list)
-      setCitiesLoading(false)
-    })()
-    return () => {
-      cancelled = true
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [value.countryIso2])
+  const lastGeocodeKeyRef = useRef<string>('')
 
   const update = (patch: Partial<ClinicLocationValue>) => onChange({ ...value, ...patch })
 
-  const onCityChange = (cityName: string) => {
-    if (!cityName) {
-      update({ city: '' })
-      return
-    }
-    const city = cities.find((c) => c.name === cityName)
-    if (city) {
-      onChange({
-        ...value,
-        city: cityName,
-        location: { lat: parseFloat(city.latitude), lng: parseFloat(city.longitude) },
-      })
-    } else {
-      update({ city: cityName })
-    }
-  }
+  useEffect(() => {
+    const { countryIso2, city, street } = value
+    if (!countryIso2 || !city.trim() || !street.trim()) return
+
+    const key = `${countryIso2}|${city.trim()}|${street.trim()}`
+    if (key === lastGeocodeKeyRef.current) return
+
+    const timer = window.setTimeout(async () => {
+      lastGeocodeKeyRef.current = key
+      setGeocoding(true)
+      setGeocodeError(null)
+      const res = await forwardGeocode({ countryIso2, city, street })
+      setGeocoding(false)
+      if (res.success) {
+        onChange({ ...value, countryIso2, city, street, location: res.data })
+      } else {
+        setGeocodeError(t.requestAccess.form.locationNotFound)
+      }
+    }, GEOCODE_DEBOUNCE_MS)
+
+    return () => window.clearTimeout(timer)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [value.countryIso2, value.city, value.street])
 
   const useMyLocation = () => {
     if (!navigator.geolocation) return
@@ -79,16 +57,23 @@ export function ClinicLocationFields({ value, onChange, errors }: ClinicLocation
         const lat = pos.coords.latitude
         const lng = pos.coords.longitude
         const reverse = await reverseGeocode(lat, lng)
-        let nextCountry = value.countryIso2
-        if (reverse.success && reverse.data.countryIso2) {
-          const matched = COUNTRIES.find((c) => c.iso2 === reverse.data.countryIso2)
-          if (matched) nextCountry = matched.iso2
+        let next: ClinicLocationValue = { ...value, location: { lat, lng } }
+        if (reverse.success) {
+          const r = reverse.data
+          const knownIso2 = r.countryIso2 && COUNTRIES.some((c) => c.iso2 === r.countryIso2)
+            ? r.countryIso2!
+            : value.countryIso2
+          next = {
+            countryIso2: knownIso2,
+            city: r.city ?? value.city,
+            street: r.street ?? value.street,
+            location: { lat, lng },
+          }
+          lastGeocodeKeyRef.current = `${knownIso2}|${next.city.trim()}|${next.street.trim()}`
+        } else {
+          setGeocodeError(t.requestAccess.form.locationReverseFailed)
         }
-        onChange({
-          ...value,
-          countryIso2: nextCountry,
-          location: { lat, lng },
-        })
+        onChange(next)
         setLocating(false)
       },
       () => {
@@ -99,23 +84,35 @@ export function ClinicLocationFields({ value, onChange, errors }: ClinicLocation
     )
   }
 
-  const onMapClick = (loc: { lat: number; lng: number } | null) => {
+  const onMapClick = async (loc: { lat: number; lng: number } | null) => {
+    if (!loc) {
+      onChange({ ...value, location: null })
+      return
+    }
     onChange({ ...value, location: loc })
+    setGeocoding(true)
+    setGeocodeError(null)
+    const reverse = await reverseGeocode(loc.lat, loc.lng)
+    setGeocoding(false)
+    if (reverse.success) {
+      const r = reverse.data
+      const knownIso2 = r.countryIso2 && COUNTRIES.some((c) => c.iso2 === r.countryIso2)
+        ? r.countryIso2!
+        : value.countryIso2
+      const next: ClinicLocationValue = {
+        countryIso2: knownIso2,
+        city: r.city ?? value.city,
+        street: r.street ?? value.street,
+        location: loc,
+      }
+      lastGeocodeKeyRef.current = `${knownIso2}|${next.city.trim()}|${next.street.trim()}`
+      onChange(next)
+    }
   }
 
   const countryError = errors?.countryIso2
   const cityError = errors?.city
   const streetError = errors?.street
-
-  const cityOptions = useMemo(
-    () =>
-      cities.map((c) => (
-        <option key={c.name} value={c.name}>
-          {c.name}
-        </option>
-      )),
-    [cities],
-  )
 
   return (
     <Box>
@@ -165,7 +162,7 @@ export function ClinicLocationFields({ value, onChange, errors }: ClinicLocation
             id="ra-clinic-country"
             value={value.countryIso2}
             onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
-              onChange({ ...value, countryIso2: e.target.value, city: '' })
+              update({ countryIso2: e.target.value })
             }
             w="full"
             h={INPUT_TOKENS.height}
@@ -198,52 +195,15 @@ export function ClinicLocationFields({ value, onChange, errors }: ClinicLocation
           )}
         </Box>
 
-        <Box>
-          <Label
-            htmlFor="ra-clinic-city"
-            display="block"
-            mb="1.5"
-            fontSize={INPUT_TOKENS.labelFontSize}
-            fontWeight={INPUT_TOKENS.labelFontWeight}
-            color={INPUT_TOKENS.labelColor}
-          >
-            {t.requestAccess.form.clinicCity}
-            <Text as="span" color="red.500" ms="1">*</Text>
-          </Label>
-          <Select
-            id="ra-clinic-city"
-            value={value.city}
-            onChange={(e: React.ChangeEvent<HTMLSelectElement>) => onCityChange(e.target.value)}
-            disabled={!value.countryIso2 || citiesLoading}
-            w="full"
-            h={INPUT_TOKENS.height}
-            px="3"
-            fontSize={INPUT_TOKENS.fontSize}
-            bg={INPUT_TOKENS.bg}
-            border="1px solid"
-            borderColor={cityError ? INPUT_TOKENS.errorBorderColor : INPUT_TOKENS.borderColor}
-            borderRadius={INPUT_TOKENS.borderRadius}
-            cursor={!value.countryIso2 || citiesLoading ? 'not-allowed' : 'pointer'}
-            _disabled={{ opacity: 0.6 }}
-            _focus={{
-              borderColor: cityError ? INPUT_TOKENS.errorBorderColor : INPUT_TOKENS.focusBorderColor,
-              outline: 'none',
-              boxShadow: cityError
-                ? '0 0 0 3px rgba(229,53,53,0.12)'
-                : '0 0 0 3px rgba(13,152,170,0.12)',
-            }}
-          >
-            <option value="">
-              {citiesLoading ? t.common.loading : t.requestAccess.form.clinicCityPlaceholder}
-            </option>
-            {cityOptions}
-          </Select>
-          {cityError && (
-            <Text mt="1.5" fontSize={INPUT_TOKENS.errorFontSize} color="red.500" role="alert">
-              {cityError}
-            </Text>
-          )}
-        </Box>
+        <AppInput
+          id="ra-clinic-city"
+          label={t.requestAccess.form.clinicCity}
+          value={value.city}
+          onChange={(v) => update({ city: v })}
+          placeholder={t.requestAccess.form.clinicCityPlaceholder}
+          error={cityError}
+          isRequired
+        />
 
         <AppInput
           id="ra-clinic-street"
@@ -264,10 +224,19 @@ export function ClinicLocationFields({ value, onChange, errors }: ClinicLocation
         error={errors?.location}
       />
 
-      {geocodeError && (
-        <Flex mt="2" align="center" gap="1.5" fontSize="12px" color="orange.600">
-          <AlertCircle size={12} />
-          <Text as="span">{geocodeError}</Text>
+      {(geocoding || geocodeError) && (
+        <Flex mt="2" align="center" gap="2">
+          {geocoding && (
+            <Text fontSize="12px" color="gray.500">
+              {t.requestAccess.form.locationSearching}
+            </Text>
+          )}
+          {geocodeError && (
+            <Flex align="center" gap="1.5" fontSize="12px" color="orange.600">
+              <AlertCircle size={12} />
+              <Text as="span">{geocodeError}</Text>
+            </Flex>
+          )}
         </Flex>
       )}
 

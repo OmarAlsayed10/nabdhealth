@@ -19,7 +19,7 @@ import { MEDIA } from '../../constants/media'
 import { FEATURES_TOKENS } from './Features.token'
 import type { FeaturesProps } from './Features.type'
 
-export function Features({ onRequestAccess, showAll = false }: FeaturesProps) {
+export function Features({ onRequestAccess, showAll = false, hideIntro = false }: FeaturesProps) {
   const { t } = useTranslation()
   const groupRef = useScrollAnimationGroup<HTMLDivElement>()
 
@@ -69,32 +69,34 @@ export function Features({ onRequestAccess, showAll = false }: FeaturesProps) {
   return (
     <SectionWrapper background="white" id="features">
       <Box ref={groupRef}>
-        <Box textAlign="center" mb="12">
-          <Box className="animate-fade-up">
-            <AppBadge>{t.features.badge}</AppBadge>
+        {!hideIntro && (
+          <Box textAlign="center" mb="12">
+            <Box className="animate-fade-up">
+              <AppBadge>{t.features.badge}</AppBadge>
+            </Box>
+            <Text
+              as="h2"
+              mt="4"
+              fontSize={{ base: '1.875rem', md: '2.5rem' }}
+              fontWeight="700"
+              color="gray.900"
+              letterSpacing="-0.02em"
+              className="animate-fade-up animate-delay-1"
+            >
+              {t.features.headline}
+            </Text>
+            <Text
+              mt="4"
+              fontSize={{ base: '1rem', md: '1.125rem' }}
+              color="gray.600"
+              maxW="560px"
+              mx="auto"
+              className="animate-fade-up animate-delay-2"
+            >
+              {t.features.subheadline}
+            </Text>
           </Box>
-          <Text
-            as="h2"
-            mt="4"
-            fontSize={{ base: '1.875rem', md: '2.5rem' }}
-            fontWeight="700"
-            color="gray.900"
-            letterSpacing="-0.02em"
-            className="animate-fade-up animate-delay-1"
-          >
-            {t.features.headline}
-          </Text>
-          <Text
-            mt="4"
-            fontSize={{ base: '1rem', md: '1.125rem' }}
-            color="gray.600"
-            maxW="560px"
-            mx="auto"
-            className="animate-fade-up animate-delay-2"
-          >
-            {t.features.subheadline}
-          </Text>
-        </Box>
+        )}
 
         <Grid
           templateColumns={{ base: '1fr', md: 'repeat(2, 1fr)', xl: 'repeat(3, 1fr)' }}

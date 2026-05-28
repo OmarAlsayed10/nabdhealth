@@ -15,7 +15,6 @@
   "dependencies": {
     "@chakra-ui/react": "^3.35.0",
     "@types/dompurify": "^3.0.5",
-    "country-state-city": "^3.2.1",
     "dompurify": "^3.4.6",
     "lucide-react": "^1.16.0",
     "nodemailer": "^8.0.9",

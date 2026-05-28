@@ -12,4 +12,5 @@ export interface FeatureItem {
 export interface FeaturesProps {
   onRequestAccess: () => void
   showAll?: boolean
+  hideIntro?: boolean
 }
