@@ -9,20 +9,20 @@ export const en = {
     requestAccess: 'Request Access',
   },
   hero: {
-    badge: 'Healthcare Software',
-    headline: 'The Clinic Management System Built for Modern Healthcare',
+    badge: 'Digital Health Platform',
+    headline: 'One Platform for Modern Healthcare',
     subheadline:
-      'Ikseer Clinic streamlines patient records, appointments, billing, and your entire clinical workflow — so your team can focus on patient care.',
+      'Ikseer Health is a growing suite of tools built for healthcare providers. Start with Ikseer Clinic — our comprehensive clinic management system — and access more products as we expand.',
     primaryCta: 'Request Access',
     secondaryCta: 'Watch Demo',
     stats: {
-      clinics: 'Clinics Onboarded',
+      clinics: 'Clinics Served',
       appointments: 'Appointments Managed',
       uptime: 'Uptime',
     },
   },
   videoDemo: {
-    badge: 'Platform Demo',
+    badge: 'Ikseer Clinic — Demo',
     headline: 'See Ikseer Clinic in Action',
     subheadline:
       'Watch how real clinics manage their entire workflow — from patient registration to invoice — in one system.',
@@ -34,7 +34,7 @@ export const en = {
     },
   },
   features: {
-    badge: 'Platform Features',
+    badge: 'Ikseer Clinic — Features',
     headline: 'Built for How Clinics Actually Work',
     lockedLabel: 'Available in Professional & Enterprise',
     cta: 'See All Features',
@@ -68,6 +68,25 @@ export const en = {
     locked: {
       title: 'More in Professional & Enterprise',
       description: 'Advanced features available upon onboarding.',
+    },
+  },
+  products: {
+    badge: 'Our Products',
+    headline: 'Healthcare Tools Built for Every Provider',
+    subheadline: 'A growing suite of products designed to cover every layer of modern healthcare delivery.',
+    clinic: {
+      badge: 'Live Now',
+      title: 'Ikseer Clinic',
+      description: 'A comprehensive clinic management system. Manage patients, appointments, billing, and your entire team in one place.',
+      features: ['Patient Records', 'Smart Scheduling', 'Billing & Invoicing', 'Clinical Reports', 'Staff Management'],
+      cta: 'Explore Ikseer Clinic',
+    },
+    pharmacy: {
+      badge: 'Coming Soon',
+      title: 'Ikseer Pharmacy',
+      description: 'Complete pharmacy management — dispensing, inventory, prescriptions, and customer records — built for modern pharmacies.',
+      features: ['Medication Inventory', 'Prescription Management', 'Dispensing Records', 'Customer Transactions', 'Analytics & Reports'],
+      cta: 'Coming Soon',
     },
   },
   pricing: {
@@ -123,13 +142,13 @@ export const en = {
   },
   about: {
     badge: 'Our Story',
-    headline: 'Built from the Clinic Floor Up',
+    headline: 'Built to Transform Healthcare',
     story: [
-      "We didn't start Ikseer in a boardroom. We started it in frustration — watching experienced doctors wrestle with paperwork, watching receptionists juggle three different systems, watching clinics lose time that should be going to patients.",
-      "Ikseer (إكسير) is Arabic for elixir — the ancient alchemists' quest for a substance that heals, transforms, and restores. That idea of transformation is what drives everything we build: turning fragmented, manual, frustrating workflows into something precise, fluid, and alive.",
-      'We are a team of developers and healthcare professionals who understood that the tools most clinics use were built for billing departments, not for care teams. So we rebuilt from scratch, starting with the workflows that matter most: knowing your patient, managing your time, and running a sustainable practice.',
-      'Every feature in Ikseer Clinic was shaped by real feedback from real clinicians. Not focus groups. Not surveys. Actual conversations, actual workflows, actual problems.',
-      "We're not just a software company. We're in the business of giving clinics their time back.",
+      "We didn't start Ikseer Health in a boardroom. We started it in frustration — watching doctors wrestle with paperwork, watching staff juggle disconnected systems, watching healthcare providers lose time that should be going to patients.",
+      "Ikseer (إكسير) is Arabic for elixir — the ancient alchemists' quest for a substance that heals, transforms, and restores. That idea of transformation is at the heart of everything we build: turning fragmented, frustrating healthcare workflows into something precise, connected, and alive.",
+      'We are a team of developers and healthcare professionals who understood that the tools most providers use were built for billing departments, not for care teams. So we rebuilt from scratch — starting with Ikseer Clinic for clinic management, and building outward to cover every layer of modern healthcare delivery.',
+      'Every product we build is shaped by real feedback from real healthcare professionals. Not focus groups. Not surveys. Actual conversations, actual workflows, actual problems.',
+      "We're not just a software company. We're in the business of giving healthcare providers their time back.",
     ],
     values: {
       headline: 'What We Stand For',
@@ -254,7 +273,7 @@ export const en = {
     },
   },
   footer: {
-    tagline: 'Designed for clinicians. Built for modern healthcare.',
+    tagline: 'Building better tools for modern healthcare.',
     nav: {
       product: 'Product',
       company: 'Company',
@@ -269,7 +288,7 @@ export const en = {
       privacy: 'Privacy Policy',
       terms: 'Terms of Service',
     },
-    copyright: '© 2025 Ikseer Clinic. All rights reserved.',
+    copyright: '© 2025 Ikseer Health. All rights reserved.',
   },
   privacy: {
     badge: 'Privacy Policy',
@@ -558,7 +577,7 @@ export const en = {
           'For any questions regarding these Terms, contact us at:',
           'Email: support@ikseerclinic.com',
           'Website: www.ikseerclinic.com',
-          'Ikseer Clinic — Redefining Healthcare Management.',
+          'Ikseer Health — Advancing Healthcare, One Product at a Time.',
         ],
       },
     ],

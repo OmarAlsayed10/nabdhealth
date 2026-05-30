@@ -127,7 +127,7 @@ export function Hero({ onRequestAccess, onWatchDemo }: HeroProps) {
               {MEDIA.hero.mockup ? (
                 <Img
                   src={MEDIA.hero.mockup}
-                  alt="Ikseer Clinic app interface"
+                  alt="Ikseer Health platform interface"
                   w="full"
                   display="block"
                 />
@@ -178,7 +178,7 @@ function MockupPlaceholder() {
         <VStack gap="3" opacity={0.6}>
           <Img src={MEDIA.logo} alt="" h="48px" />
           <Text color="white" fontSize="14px" fontWeight="500">
-            Ikseer Clinic
+            Ikseer Health
           </Text>
         </VStack>
         {[...Array(4)].map((_, i) => (
