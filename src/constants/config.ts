@@ -1,4 +1,4 @@
-export const CONFIG = {
+﻿export const CONFIG = {
   api: {
     baseUrl: import.meta.env.VITE_API_BASE_URL ?? '',
     timeout: 10_000,
@@ -17,7 +17,7 @@ export const CONFIG = {
     },
   },
   contact: {
-    email: 'nabdhealtheg@gmail.com',
+    email: 'ikseerhealth@gmail.com',
   },
   trial: {
     days: 7,

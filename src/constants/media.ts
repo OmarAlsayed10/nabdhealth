@@ -1,4 +1,4 @@
-import { CONFIG } from './config'
+﻿import { CONFIG } from './config'
 import logoUrl from '../assets/logo.png'
 
 const { cloudName } = CONFIG.cloudinary
@@ -13,41 +13,41 @@ export const MEDIA = {
   logo: logoUrl,
 
   hero: {
-    mockup: img('nabd/hero-mockup', 'q_auto,f_auto,w_1200'),
-    background: img('nabd/hero-bg', 'q_auto,f_auto'),
+    mockup: img('ikseer/hero-mockup', 'q_auto,f_auto,w_1200'),
+    background: img('ikseer/hero-bg', 'q_auto,f_auto'),
   },
 
   demos: {
-    overview: vid('nabd/demo-overview'),
-    appointment: vid('nabd/demo-appointment'),
-    billing: vid('nabd/demo-billing'),
+    overview: vid('ikseer/demo-overview'),
+    appointment: vid('ikseer/demo-appointment'),
+    billing: vid('ikseer/demo-billing'),
   },
 
   features: {
     patients: {
-      video: vid('nabd/feature-patients'),
-      thumbnail: img('nabd/feature-patients-thumb'),
+      video: vid('ikseer/feature-patients'),
+      thumbnail: img('ikseer/feature-patients-thumb'),
     },
     scheduling: {
-      video: vid('nabd/feature-scheduling'),
-      thumbnail: img('nabd/feature-scheduling-thumb'),
+      video: vid('ikseer/feature-scheduling'),
+      thumbnail: img('ikseer/feature-scheduling-thumb'),
     },
     billing: {
-      video: vid('nabd/feature-billing'),
-      thumbnail: img('nabd/feature-billing-thumb'),
+      video: vid('ikseer/feature-billing'),
+      thumbnail: img('ikseer/feature-billing-thumb'),
     },
     reports: {
-      video: vid('nabd/feature-reports'),
-      thumbnail: img('nabd/feature-reports-thumb'),
+      video: vid('ikseer/feature-reports'),
+      thumbnail: img('ikseer/feature-reports-thumb'),
     },
     staff: {
-      video: vid('nabd/feature-staff'),
-      thumbnail: img('nabd/feature-staff-thumb'),
+      video: vid('ikseer/feature-staff'),
+      thumbnail: img('ikseer/feature-staff-thumb'),
     },
   },
 
   about: {
-    team: img('nabd/team', 'q_auto,f_auto,w_900'),
-    office: img('nabd/office', 'q_auto,f_auto,w_900'),
+    team: img('ikseer/team', 'q_auto,f_auto,w_900'),
+    office: img('ikseer/office', 'q_auto,f_auto,w_900'),
   },
 } as const

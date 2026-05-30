@@ -1,4 +1,4 @@
-export const en = {
+﻿export const en = {
   nav: {
     home: 'Home',
     features: 'Features',
@@ -145,7 +145,7 @@ export const en = {
     headline: 'Built to Transform Healthcare',
     story: [
       "We didn't start Ikseer Health in a boardroom. We started it in frustration — watching doctors wrestle with paperwork, watching staff juggle disconnected systems, watching healthcare providers lose time that should be going to patients.",
-      "Ikseer (إكسير) is Arabic for elixir — the ancient alchemists' quest for a substance that heals, transforms, and restores. That idea of transformation is at the heart of everything we build: turning fragmented, frustrating healthcare workflows into something precise, connected, and alive.",
+      "Ikseer Health (إكسير) is Arabic for elixir — the ancient alchemists' quest for a substance that heals, transforms, and restores. That idea of transformation is at the heart of everything we build: turning fragmented, frustrating healthcare workflows into something precise, connected, and alive.",
       'We are a team of developers and healthcare professionals who understood that the tools most providers use were built for billing departments, not for care teams. So we rebuilt from scratch — starting with Ikseer Clinic for clinic management, and building outward to cover every layer of modern healthcare delivery.',
       'Every product we build is shaped by real feedback from real healthcare professionals. Not focus groups. Not surveys. Actual conversations, actual workflows, actual problems.',
       "We're not just a software company. We're in the business of giving healthcare providers their time back.",
@@ -212,7 +212,7 @@ export const en = {
     subheadline: "We'd love to hear from you. Our team responds within one business day.",
     email: {
       label: 'Email Us',
-      value: 'nabdclinicos@gmail.com',
+      value: 'ikseerhealth@gmail.com',
     },
     form: {
       name: 'Full Name',
@@ -292,17 +292,17 @@ export const en = {
   },
   privacy: {
     badge: 'Privacy Policy',
-    headline: 'Privacy Policy — Ikseer',
+    headline: 'Privacy Policy — Ikseer Health',
     effectiveDate: 'Effective Date: May 28, 2025',
     lastUpdated: 'Last Updated: May 28, 2025',
     sections: [
       {
         title: 'Introduction',
         paragraphs: [
-          'Ikseer is a digital healthcare technology platform that develops and operates a suite of applications designed to modernize and simplify healthcare management across clinics, pharmacies, and other medical facilities.',
+          'Ikseer Health is a digital healthcare technology platform that develops and operates a suite of applications designed to modernize and simplify healthcare management across clinics, pharmacies, and other medical facilities.',
           'Our current products include:',
-          'Additional applications may be introduced under the Ikseer platform in the future. This Privacy Policy applies to all current and future Ikseer products, services, and the Ikseer website, unless a specific product provides its own separate policy.',
-          'By using any Ikseer product or visiting our website, you agree to the terms outlined in this Privacy Policy.',
+          'Additional applications may be introduced under the Ikseer Health platform in the future. This Privacy Policy applies to all current and future Ikseer Health products, services, and the Ikseer Health website, unless a specific product provides its own separate policy.',
+          'By using any Ikseer Health product or visiting our website, you agree to the terms outlined in this Privacy Policy.',
         ],
         bullets: [
           'Ikseer Clinic — a comprehensive clinic management app for doctors and healthcare professionals.',
@@ -312,20 +312,20 @@ export const en = {
       {
         title: 'Data We Collect',
         paragraphs: [
-          'Depending on which Ikseer application you use, we may collect and store:',
+          'Depending on which Ikseer Health application you use, we may collect and store:',
         ],
         bullets: [
           'Patient information: names, contact details, medical history, diagnoses, prescriptions, and invoices.',
           'Doctor and staff information: names, professional credentials, clinic affiliations, and contact details.',
           'Pharmacy data: medication inventory, dispensing records, and customer transaction data (Ikseer Pharmacy, coming soon).',
           'Usage data: app activity, login times, device information, and session logs.',
-          'Website data: standard analytics such as IP address, browser type, and pages visited when you browse the Ikseer website.',
+          'Website data: standard analytics such as IP address, browser type, and pages visited when you browse the Ikseer Health website.',
         ],
       },
       {
         title: 'How We Use Your Data',
         paragraphs: [
-          'Data collected across Ikseer products is used solely for:',
+          'Data collected across Ikseer Health products is used solely for:',
           'We do not sell, rent, or share your data with third parties for marketing or advertising purposes.',
         ],
         bullets: [
@@ -338,23 +338,23 @@ export const en = {
         ],
       },
       {
-        title: 'Data Sharing Across Ikseer Products',
+        title: 'Data Sharing Across Ikseer Health Products',
         paragraphs: [
-          'If you use more than one Ikseer application, certain account-level information may be shared across products within the platform to provide a unified experience. This sharing is internal to Ikseer only and does not involve any external parties.',
+          'If you use more than one Ikseer Health application, certain account-level information may be shared across products within the platform to provide a unified experience. This sharing is internal to Ikseer Health only and does not involve any external parties.',
         ],
       },
       {
         title: 'AI Assistant Disclaimer',
         paragraphs: [
-          'Ikseer Clinic and future Ikseer products may include an AI assistant designed to support healthcare professionals with suggestions, information lookup, and administrative tasks.',
+          'Ikseer Clinic and future Ikseer Health products may include an AI assistant designed to support healthcare professionals with suggestions, information lookup, and administrative tasks.',
           'Important: The AI assistant is a supplementary tool only. It does not provide medical diagnoses, and its outputs should never be used as the sole basis for any clinical decision. A disclaimer is displayed within the relevant app at all times reminding users not to rely on AI suggestions without professional medical judgment.',
-          'Ikseer, its developers, and affiliated parties bear no responsibility for any clinical decisions made based on AI-generated content, nor for any patient harm, injury, or death resulting from such decisions.',
+          'Ikseer Health, its developers, and affiliated parties bear no responsibility for any clinical decisions made based on AI-generated content, nor for any patient harm, injury, or death resulting from such decisions.',
         ],
       },
       {
         title: 'Medical Liability Disclaimer',
         paragraphs: [
-          'Ikseer products are digital management tools, not medical devices or clinical authorities. We are not responsible for:',
+          'Ikseer Health products are digital management tools, not medical devices or clinical authorities. We are not responsible for:',
           'All medical and professional responsibility remains solely with the licensed healthcare professional providing care or service:',
         ],
         bullets: [
@@ -367,7 +367,7 @@ export const en = {
       {
         title: 'Data Security',
         paragraphs: [
-          'We implement industry-standard security measures to protect your data, including encrypted storage and secure authentication across all Ikseer products. However, no system is completely immune to breaches. In the event of a data breach affecting your information, we will notify affected users in accordance with applicable law.',
+          'We implement industry-standard security measures to protect your data, including encrypted storage and secure authentication across all Ikseer Health products. However, no system is completely immune to breaches. In the event of a data breach affecting your information, we will notify affected users in accordance with applicable law.',
         ],
       },
       {
@@ -379,65 +379,65 @@ export const en = {
       {
         title: 'Third-Party Services',
         paragraphs: [
-          'Ikseer products may integrate with third-party services such as WhatsApp for OTP delivery. These services are governed by their own privacy policies, and we encourage you to review them independently. Ikseer is not responsible for the data practices of third-party providers.',
+          'Ikseer Health products may integrate with third-party services such as WhatsApp for OTP delivery. These services are governed by their own privacy policies, and we encourage you to review them independently. Ikseer Health is not responsible for the data practices of third-party providers.',
         ],
       },
       {
         title: "Children's Data",
         paragraphs: [
-          'Ikseer products are intended for use by licensed healthcare professionals and authorized staff only. We do not knowingly collect personal data from individuals under the age of 18 outside of patient or customer records entered by authorized medical staff.',
+          'Ikseer Health products are intended for use by licensed healthcare professionals and authorized staff only. We do not knowingly collect personal data from individuals under the age of 18 outside of patient or customer records entered by authorized medical staff.',
         ],
       },
       {
         title: 'Future Applications',
         paragraphs: [
-          'As Ikseer grows and new applications are added to the platform, this Privacy Policy will be updated to reflect any new data practices introduced by those products. Users will be notified of significant updates through our website and in-app notifications.',
+          'As Ikseer Health grows and new applications are added to the platform, this Privacy Policy will be updated to reflect any new data practices introduced by those products. Users will be notified of significant updates through our website and in-app notifications.',
         ],
       },
       {
         title: 'Changes to This Policy',
         paragraphs: [
-          'We reserve the right to update this Privacy Policy at any time. Continued use of any Ikseer product or website after changes constitutes acceptance of the updated policy.',
+          'We reserve the right to update this Privacy Policy at any time. Continued use of any Ikseer Health product or website after changes constitutes acceptance of the updated policy.',
         ],
       },
       {
         title: 'Contact Us',
         paragraphs: [
           'For privacy-related inquiries, contact us at:',
-          'Email: support@ikseerclinic.com',
-          'Website: www.ikseerclinic.com',
+          'Email: support@Ikseer Healthclinic.com',
+          'Website: www.Ikseer Healthclinic.com',
         ],
       },
     ],
   },
   terms: {
     badge: 'Terms of Service',
-    headline: 'Terms of Service — Ikseer',
+    headline: 'Terms of Service — Ikseer Health',
     effectiveDate: 'Effective Date: May 28, 2025',
     lastUpdated: 'Last Updated: May 28, 2025',
     sections: [
       {
         title: 'Introduction and Acceptance of Terms',
         paragraphs: [
-          'These Terms of Service govern your use of the Ikseer website and all applications and services operated under the Ikseer platform, including:',
-          'By accessing our website or using any Ikseer product, you agree to be bound by these Terms. If you do not agree, you must discontinue use immediately.',
+          'These Terms of Service govern your use of the Ikseer Health website and all applications and services operated under the Ikseer Health platform, including:',
+          'By accessing our website or using any Ikseer Health product, you agree to be bound by these Terms. If you do not agree, you must discontinue use immediately.',
         ],
         bullets: [
           'Ikseer Clinic — clinic management for healthcare professionals.',
           'Ikseer Pharmacy — pharmacy management (coming soon).',
-          'Any additional applications introduced by Ikseer in the future.',
+          'Any additional applications introduced by Ikseer Health in the future.',
         ],
       },
       {
-        title: 'The Ikseer Platform',
+        title: 'The Ikseer Health Platform',
         paragraphs: [
-          'Ikseer is the parent platform under which multiple healthcare management applications are developed and operated. Each application may have its own supplementary terms or in-app policies, but these Terms of Service apply universally across all Ikseer products and the Ikseer website.',
+          'Ikseer Health is the parent platform under which multiple healthcare management applications are developed and operated. Each application may have its own supplementary terms or in-app policies, but these Terms of Service apply universally across all Ikseer Health products and the Ikseer Health website.',
         ],
       },
       {
         title: 'Eligibility',
         paragraphs: [
-          'Ikseer products are intended for use by:',
+          'Ikseer Health products are intended for use by:',
           'Use of our products by unlicensed individuals for clinical or pharmaceutical purposes is strictly prohibited.',
         ],
         bullets: [
@@ -450,7 +450,7 @@ export const en = {
       {
         title: 'License to Use',
         paragraphs: [
-          'We grant you a limited, non-exclusive, non-transferable, revocable license to use Ikseer products for your professional healthcare management purposes in accordance with these Terms.',
+          'We grant you a limited, non-exclusive, non-transferable, revocable license to use Ikseer Health products for your professional healthcare management purposes in accordance with these Terms.',
         ],
       },
       {
@@ -459,10 +459,10 @@ export const en = {
           'You agree not to:',
         ],
         bullets: [
-          'Copy, reverse-engineer, decompile, or disassemble any part of any Ikseer product or website.',
-          'Use any Ikseer product for unlawful purposes.',
+          'Copy, reverse-engineer, decompile, or disassemble any part of any Ikseer Health product or website.',
+          'Use any Ikseer Health product for unlawful purposes.',
           'Share your account credentials with unauthorized individuals.',
-          'Attempt to breach or circumvent any security measures within any Ikseer product.',
+          'Attempt to breach or circumvent any security measures within any Ikseer Health product.',
           'Use the platform to store or transmit malicious code.',
           'Misrepresent your identity or professional credentials.',
         ],
@@ -470,25 +470,25 @@ export const en = {
       {
         title: 'Strict Prohibition on Competitive Data Transfer',
         paragraphs: [
-          'This clause is critical and legally binding across all Ikseer products.',
+          'This clause is critical and legally binding across all Ikseer Health products.',
           'You are strictly prohibited from:',
           'Violation of this clause will result in:',
-          'Ikseer actively monitors for anomalous data access patterns and reserves the right to pursue legal action without prior warning upon detection of any violation.',
+          'Ikseer Health actively monitors for anomalous data access patterns and reserves the right to pursue legal action without prior warning upon detection of any violation.',
         ],
         bullets: [
-          'Sharing, transferring, exporting, or disclosing any data, features, workflows, system structures, UI/UX designs, proprietary logic, or business methodologies from any Ikseer product to any competing product, company, developer, or third party.',
-          'Using your access to any Ikseer product to assist, consult for, or contribute to the development of any competing healthcare management software or platform.',
+          'Sharing, transferring, exporting, or disclosing any data, features, workflows, system structures, UI/UX designs, proprietary logic, or business methodologies from any Ikseer Health product to any competing product, company, developer, or third party.',
+          'Using your access to any Ikseer Health product to assist, consult for, or contribute to the development of any competing healthcare management software or platform.',
           'Extracting patient, pharmacy, clinic, or operational data from the platform for any purpose other than your own direct professional use.',
-          'Immediate and permanent termination of your account across all Ikseer products, with no refund.',
+          'Immediate and permanent termination of your account across all Ikseer Health products, with no refund.',
           'Civil legal action for damages, including but not limited to loss of business, intellectual property theft, and unfair competition.',
           'Criminal referral where applicable under cybercrime and data protection laws of your jurisdiction.',
-          'Injunctive relief sought by Ikseer to prevent further misuse.',
+          'Injunctive relief sought by Ikseer Health to prevent further misuse.',
         ],
       },
       {
         title: 'Multi-Application Use',
         paragraphs: [
-          'If you use more than one Ikseer application, these Terms apply to your use of all products collectively. Each product may also carry supplementary in-app terms that you are required to accept upon use.',
+          'If you use more than one Ikseer Health application, these Terms apply to your use of all products collectively. Each product may also carry supplementary in-app terms that you are required to accept upon use.',
         ],
       },
       {
@@ -500,20 +500,20 @@ export const en = {
       {
         title: 'AI Assistant — Terms of Use',
         paragraphs: [
-          'AI-powered features within Ikseer products are provided as informational and administrative aids only.',
-          'By using any AI feature within a Ikseer product, you acknowledge and accept these limitations in full.',
+          'AI-powered features within Ikseer Health products are provided as informational and administrative aids only.',
+          'By using any AI feature within a Ikseer Health product, you acknowledge and accept these limitations in full.',
         ],
         bullets: [
           'AI tools within our products are not licensed medical or pharmaceutical professionals.',
           'AI-generated suggestions must not be treated as medical, clinical, or pharmaceutical advice.',
           'A permanent in-app notice is displayed in all relevant products reminding users of this limitation.',
-          'Ikseer holds no liability for any decisions made using AI-generated content.',
+          'Ikseer Health holds no liability for any decisions made using AI-generated content.',
         ],
       },
       {
         title: 'Medical and Professional Liability',
         paragraphs: [
-          'Ikseer provides tools to assist with healthcare administration. We do not practice medicine, pharmacy, or any regulated healthcare profession, and we are not liable for:',
+          'Ikseer Health provides tools to assist with healthcare administration. We do not practice medicine, pharmacy, or any regulated healthcare profession, and we are not liable for:',
           'All clinical, medical, and professional responsibility remains solely with the treating or supervising licensed professional.',
         ],
         bullets: [
@@ -526,25 +526,25 @@ export const en = {
       {
         title: 'Invoices and Financial Records',
         paragraphs: [
-          'Ikseer products generate invoices and financial summaries as a convenience feature. These should always be reviewed by the responsible party for accuracy. We are not responsible for billing errors, tax miscalculations, or disputes arising from generated records.',
+          'Ikseer Health products generate invoices and financial summaries as a convenience feature. These should always be reviewed by the responsible party for accuracy. We are not responsible for billing errors, tax miscalculations, or disputes arising from generated records.',
         ],
       },
       {
         title: 'Website Use',
         paragraphs: [
-          'The Ikseer website is provided for informational purposes regarding our products and platform. We reserve the right to modify, suspend, or discontinue any part of the website at any time without notice.',
+          'The Ikseer Health website is provided for informational purposes regarding our products and platform. We reserve the right to modify, suspend, or discontinue any part of the website at any time without notice.',
         ],
       },
       {
         title: 'Subscription and Payments',
         paragraphs: [
-          'Pricing, subscription plans, and billing details are provided at the time of registration for each product. Ikseer reserves the right to modify pricing across any of its products with reasonable advance notice. Continued use after a price change constitutes acceptance of the new pricing.',
+          'Pricing, subscription plans, and billing details are provided at the time of registration for each product. Ikseer Health reserves the right to modify pricing across any of its products with reasonable advance notice. Continued use after a price change constitutes acceptance of the new pricing.',
         ],
       },
       {
         title: 'Termination',
         paragraphs: [
-          'We reserve the right to suspend or terminate your account across any or all Ikseer products at any time if:',
+          'We reserve the right to suspend or terminate your account across any or all Ikseer Health products at any time if:',
           'Upon termination, your access to data within the affected product(s) may be restricted. Data retrieval requests must be submitted within 30 days of termination.',
         ],
         bullets: [
@@ -556,7 +556,7 @@ export const en = {
       {
         title: 'Limitation of Liability',
         paragraphs: [
-          'To the fullest extent permitted by law, Ikseer and its developers shall not be liable for any indirect, incidental, special, or consequential damages arising out of your use of any Ikseer product or website, including but not limited to loss of data, loss of revenue, or patient harm.',
+          'To the fullest extent permitted by law, Ikseer Health and its developers shall not be liable for any indirect, incidental, special, or consequential damages arising out of your use of any Ikseer Health product or website, including but not limited to loss of data, loss of revenue, or patient harm.',
         ],
       },
       {
@@ -568,15 +568,15 @@ export const en = {
       {
         title: 'Amendments',
         paragraphs: [
-          'We may update these Terms at any time. Continued use of any Ikseer product or website after updates constitutes your acceptance of the revised Terms. Major updates will be communicated via in-app notification and/or the Ikseer website.',
+          'We may update these Terms at any time. Continued use of any Ikseer Health product or website after updates constitutes your acceptance of the revised Terms. Major updates will be communicated via in-app notification and/or the Ikseer Health website.',
         ],
       },
       {
         title: 'Contact Us',
         paragraphs: [
           'For any questions regarding these Terms, contact us at:',
-          'Email: support@ikseerclinic.com',
-          'Website: www.ikseerclinic.com',
+          'Email: support@Ikseer Healthclinic.com',
+          'Website: www.Ikseer Healthclinic.com',
           'Ikseer Health — Advancing Healthcare, One Product at a Time.',
         ],
       },
